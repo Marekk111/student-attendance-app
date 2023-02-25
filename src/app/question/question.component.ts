@@ -1,13 +1,13 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Question } from './question';
+import { QuestionService } from './question.service';
+import {HttpErrorResponse} from '@angular/common/http'
 import { NgForm } from '@angular/forms';
-import { Question } from '../question';
-import { QuestionService } from '../question.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './questions.component.html',
-  styleUrls: ['./questions.component.css']
+  selector: 'app-question',
+  templateUrl: './question.component.html',
+  styleUrls: ['./question.component.css']
 })
 export class QuestionComponent implements OnInit{
   public questions: Question[] | undefined;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Question } from './question';
+import { Answer } from '../answer/answer';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environments';
 
@@ -15,7 +16,15 @@ export class QuestionService {
   
   public getQuestion(): Observable<Question[]> {
     return this.http.get<Question[]>(`${this.apiServerUrl}/question/all`);
-  } 
+  }
+  
+  public findQuestionById(id? : number): Observable<Question> {
+    return this.http.get<Question>(`${this.apiServerUrl}/question/find/${id}`);
+  }
+
+  public findAllAnswersForQuestion(id? : number): Observable<Answer[]> {
+    return this.http.get<Answer[]>(`${this.apiServerUrl}/question/find/${id}/answers`);
+  }
 
   public addQuestion(question : Question): Observable<Question> {
     return this.http.post<Question>(`${this.apiServerUrl}/question/add`, question);
