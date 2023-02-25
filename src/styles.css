@@ -111,3 +111,7 @@ td {
 .modal-backdrop.in {
     opacity: 0.5;
 }
+
+.linkdiv li  {
+    color: blue;
+ }
