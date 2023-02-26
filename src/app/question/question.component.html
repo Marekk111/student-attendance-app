@@ -17,6 +17,7 @@
                 <td class="text col-sm">{{question.questionBody}}</td>
                 <td>
                   <div class="tools">
+                    <i class="fa fa-plus" (click)="onSetSubjectQuestion(question)" routerLink="/addQuestionToSubject" style="padding-right: 0.5rem"></i>
                     <i class="fa fa-edit" (click)="onOpenModal('edit', question)" style="padding-right: 0.5rem"></i>
                     <i class="fa fa-trash-o" (click)="onOpenModal('delete', question)"></i>
                   </div>

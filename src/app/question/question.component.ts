@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Question } from './question';
 import { QuestionService } from './question.service';
 import {HttpErrorResponse} from '@angular/common/http'
@@ -13,7 +13,10 @@ export class QuestionComponent implements OnInit{
   public questions: Question[] | undefined;
   public editQuestion: Question | undefined;
   public deleteQuestion: Question | undefined;
+  public subjectQuestion: Question | undefined;
   constructor(private questionService: QuestionService) {}
+
+  @Output() questionToSubject = new EventEmitter<Question>();
 
   ngOnInit() {
     this.getQuestions();
@@ -44,6 +47,12 @@ export class QuestionComponent implements OnInit{
       }
     );
   }
+
+  public onSetSubjectQuestion(question: Question): void{
+    this.questionToSubject.emit(question);
+  }
+
+
 
   public onUpdateQuestion(question: Question): void{
     this.questionService.updateQuestion(question).subscribe(
