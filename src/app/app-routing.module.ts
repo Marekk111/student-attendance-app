@@ -4,6 +4,7 @@ import { AnswerComponent } from './answer/answer.component';
 import { AppComponent } from './app.component';
 import { QuestionAdderComponent } from './question-adder/question-adder.component';
 import { QuestionComponent } from './question/question.component';
+import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 import { SubjectComponent } from './subject/subject.component';
 
 const routes: Routes = [
@@ -11,7 +12,8 @@ const routes: Routes = [
   {path: 'questions', component: QuestionComponent},
   {path: 'questions/:id', component: AnswerComponent},
   {path: 'subjects', component: SubjectComponent},
-  {path: 'addQuestionToSubject', component: QuestionAdderComponent}
+  {path: 'subjects/:id', component: QuestionnaireComponent},
+  {path: 'subjects/:id/setQuestion', component: QuestionAdderComponent}
 ];
 
 @NgModule({

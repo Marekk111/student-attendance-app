@@ -31,10 +31,14 @@ import { environment } from 'src/environments/environments';
     }
 
     public setSubjectQuestion(id: number, question? : Question): Observable<Subject> {
-      return this.http.put<Subject>(`${this.apiServerUrl}/subject/find/${id}`, question);
+      return this.http.put<Subject>(`${this.apiServerUrl}/subject/find/${id}/setQuestion`, question);
     }
   
     public deleteSubject(id? : number): Observable<void> {
       return this.http.delete<void>(`${this.apiServerUrl}/subject/delete/${id}`);
+    }
+
+    public getSubjectQuestion(id: number): Observable<Question> {
+      return this.http.get<Question>(`${this.apiServerUrl}/subject/find/${id}/question`);
     }
   }

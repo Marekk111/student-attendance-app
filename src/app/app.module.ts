@@ -9,6 +9,7 @@ import {RouterModule} from '@angular/router'
 import { AnswerComponent } from './answer/answer.component';
 import { QuestionComponent } from './question/question.component';
 import { SubjectComponent } from './subject/subject.component';
+import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 import { QuestionAdderComponent } from './question-adder/question-adder.component';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { QuestionAdderComponent } from './question-adder/question-adder.componen
     AnswerComponent,
     QuestionComponent,
     SubjectComponent,
+    QuestionnaireComponent,
     QuestionAdderComponent
   ],
   imports: [

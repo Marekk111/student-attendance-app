@@ -1,35 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { Subject } from '../subject/subject';
+import { Component, OnInit, Output } from '@angular/core';
+import { __importDefault } from 'tslib';
+import { QuestionService } from '../question/question.service';
 import { Question } from '../question/question';
-import { SubjectService } from '../subject/subject.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import { Subject } from '../subject/subject';
+import { SubjectService } from '../subject/subject.service';
+import { ActivatedRoute } from '@angular/router';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-question-adder',
   templateUrl: './question-adder.component.html',
   styleUrls: ['./question-adder.component.css']
 })
-export class QuestionAdderComponent {
-  subjects: Subject[] | undefined;
-  question: Question | undefined;
-  constructor(private subjectService: SubjectService) {}
+export class QuestionAdderComponent implements OnInit{
+  
+  questions: Question[] | undefined;
+  subject: Subject | undefined;
+  id: any = '0';
+
+  constructor(private questionService: QuestionService, private subjectService: SubjectService, private route: ActivatedRoute){
+    this.route.paramMap.subscribe(params => {this.id = params.get('id');})
+  }
 
   ngOnInit() {
-    this.getSubjects();
+    this.getSubject(this.id);
+    this.getQuestions();
   }
 
-  public questionToSubject(question: Question) {
-    this.question = question;
-  }
+  @Output() childToParent = new EventEmitter<Question>();
 
-  public setQuestion(id: number) {
-    this.subjectService.setSubjectQuestion(id, this.question);
-  }
-
-  public getSubjects() {
-    this.subjectService.getSubject().subscribe(
-      (response: Subject[]) => {
-        this.subjects = response;
+  public getQuestions(){
+    this.questionService.getQuestion().subscribe(
+      (response: Question[]) => {
+        this.questions = response;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -37,15 +41,28 @@ export class QuestionAdderComponent {
     );
   }
 
-  public onUpdateQuestion(subject: Subject): void{
-    this.subjectService.updateSubject(subject).subscribe(
+  public getSubject(id: number){
+    this.subjectService.findSubjectById(id).subscribe(
       (response: Subject) => {
-        console.log(response);
-        this.getSubjects();
+        this.subject = response;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
-    );
+    )
   }
+
+  public setQuestionForSubject(question: Question){
+    console.log(this.id);
+    console.log(question.name);
+    this.subjectService.setSubjectQuestion(this.id, question).subscribe(
+      (response: Subject) => {
+        this.subject = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )
+  }
+
 }

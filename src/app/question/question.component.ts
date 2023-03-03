@@ -16,8 +16,6 @@ export class QuestionComponent implements OnInit{
   public subjectQuestion: Question | undefined;
   constructor(private questionService: QuestionService) {}
 
-  @Output() questionToSubject = new EventEmitter<Question>();
-
   ngOnInit() {
     this.getQuestions();
   }
@@ -47,12 +45,6 @@ export class QuestionComponent implements OnInit{
       }
     );
   }
-
-  public onSetSubjectQuestion(question: Question): void{
-    this.questionToSubject.emit(question);
-  }
-
-
 
   public onUpdateQuestion(question: Question): void{
     this.questionService.updateQuestion(question).subscribe(
