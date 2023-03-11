@@ -1,8 +1,13 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Question } from './question';
-import { QuestionService } from './question.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Question} from './question';
+import {QuestionService} from './question.service';
 import {HttpErrorResponse} from '@angular/common/http'
-import { NgForm } from '@angular/forms';
+import {FormControl, FormGroup, NgForm} from '@angular/forms';
+import {QuestionType} from "./questionType";
+import {Observable} from "rxjs";
+import {AnswerOptionService} from "../answer-option/answer-option.service";
+import {AnswerOption} from "../answer-option/answer-option";
+import {NgFor} from "@angular/common";
 
 @Component({
   selector: 'app-question',
@@ -13,11 +18,51 @@ export class QuestionComponent implements OnInit{
   public questions: Question[] | undefined;
   public editQuestion: Question | undefined;
   public deleteQuestion: Question | undefined;
-  public subjectQuestion: Question | undefined;
-  constructor(private questionService: QuestionService) {}
+  public questionToAddOptions: Question | undefined;
+
+  selectedType: QuestionType | undefined;
+
+  questionTypes = Object.values(QuestionType);
+
+  items: { optionBody: string, question: Question | undefined }[] = [];
+
+  constructor(private questionService: QuestionService, private answerOptionService: AnswerOptionService) {
+  }
+
+  addItem(question?: Question) {
+    this.items.push({
+      optionBody: '',
+      question: question
+    });
+  }
+
+  removeItem(index: number) {
+    this.items.splice(index, 1);
+  }
+
 
   ngOnInit() {
     this.getQuestions();
+  }
+
+  onAnswerOptionSubmit(form: NgForm): void {
+    console.log(this.items);
+    console.log(this.questionToAddOptions);
+    for (const answerOption of this.items) {
+      console.log(answerOption);
+      this.answerOptionService.addAnswerOption(answerOption).subscribe(
+        (response: AnswerOption) => {
+          console.log(response);
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      )
+    }
+  }
+
+  trackByFn(index: number, item: string): number {
+    return index; // or item.id if you have an identifier property
   }
 
   public getQuestions(){
@@ -33,6 +78,8 @@ export class QuestionComponent implements OnInit{
 
   public onAddQuestion(addForm: NgForm): void{
     document.getElementById("add-question-form")?.click();
+    console.log(this.selectedType);
+    console.log(addForm.value);
     this.questionService.addQuestion(addForm.value).subscribe(
       (response: Question) => {
         console.log(response);
@@ -45,6 +92,7 @@ export class QuestionComponent implements OnInit{
       }
     );
   }
+
 
   public onUpdateQuestion(question: Question): void{
     this.questionService.updateQuestion(question).subscribe(
@@ -86,6 +134,10 @@ export class QuestionComponent implements OnInit{
     else if (mode === 'delete') {
       this.deleteQuestion = question;
       button.setAttribute('data-target', '#deleteQuestionModal');
+    }
+    else if (mode === 'addOption') {
+      this.questionToAddOptions = question;
+      button.setAttribute('data-target', '#optionModal')
     }
     container?.appendChild(button);
     button.click();

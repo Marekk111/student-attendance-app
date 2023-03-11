@@ -13,23 +13,24 @@
           <li>
             <table class="table">
               <tr>
-                <li><td class="text col-sm-3" routerLink="/questions/{{question.id}}">{{question.name}}</td></li>
-                <td class="text col-sm">{{question.questionBody}}</td>
+                <td class="text col-sm-3" routerLink="/questions/{{question.id}}">{{question.name}}</td>
+                <td class="text col-sm-3">{{question.questionBody}}</td>
                 <td>
                   <div class="tools">
                     <i class="fa fa-edit" (click)="onOpenModal('edit', question)" style="padding-right: 0.5rem"></i>
                     <i class="fa fa-trash-o" (click)="onOpenModal('delete', question)"></i>
+                    <i class="fa fa-plus" (click)="onOpenModal('addOption', question)"> Add option </i>
                   </div>
-                </td>              
+                </td>
               </tr>
             </table>
           </li>
         </ul>
       </div>
       <div class="box-footer clearfix no-border">
-      <button type="button" class="btn btn-default pull-right" (click)="onOpenModal('add', undefined)"><i class="fa fa-plus"></i> Add Question</button>
+        <button type="button" class="btn btn-default pull-right" (click)="onOpenModal('add', undefined)"><i class="fa fa-plus"></i> Add Question</button>
       </div>
-    </div>   
+    </div>
 </div>
 </div>
 
@@ -50,6 +51,13 @@
                 <input type="text" ngModel name="name" class="form-control" id="questionName" aria-describedby="nameHelp" placeholder="Enter name" required>
                 <label for="questionBody">Question body</label>
                 <input type="text" ngModel name="questionBody" class="form-control" id="questionBody" aria-describedby="nameHelp" placeholder="Enter question body" required>
+                <div class="form-group">
+                  <label for="questionTypeDropdown">Select question type:</label>
+                  <select ngModel name="questionType" id="questionTypeDropdown" class="form-control">
+                    <option *ngFor="let option of questionTypes" [value]="option">{{ option }}</option>
+                  </select>
+                </div>
+                <!--<input type="hidden" [(ngModel)]="selectedOption" name="questionType" class="form-control" id="questionType">-->
               </div>
               <div class="modal-footer">
                   <button type="button" id="add-question-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -61,7 +69,7 @@
   </div>
 </div>
 
-<!-- Delete Modal --> 
+<!-- Delete Modal -->
 <div class="modal fade in" id="deleteQuestionModal" tabindex="-1" role="dialog" aria-labelledby="deleteQuestionModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
      <div class="modal-content">
@@ -101,13 +109,44 @@
                 <input type="text" ngModel="{{editQuestion?.questionBody}}" name="questionBody" class="form-control" id="InputQuestionBody">
               </div>
               <input type="hidden" ngModel="{{editQuestion?.id}}" name="id" class="form-control" id="InputQuestionId">
-              
+
               <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   <button (click)="onUpdateQuestion(editForm.value)" type="submit" class="btn btn-primary" data-dismiss="modal">Save changes</button>
-                </div>
+              </div>
           </form>
         </div>
       </div>
   </div>
 </div>
+
+<div class="modal fade in" id="optionModal" tabindex="-1" role="dialog" aria-labelledby="OptionModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="OptionModalLabel">Add Option</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #optionForm="ngForm" class="form-group" (ngSubmit)="onAnswerOptionSubmit(optionForm)">
+          <div *ngFor="let item of items; let i = index;">
+            <input name="optionBody{{i}}" [(ngModel)]="item.optionBody" required>
+            <button type="button" (click)="removeItem(i)">Remove</button>
+          </div>
+          <button type="button" (click)="addItem(this.questionToAddOptions)">Add</button>
+          <br>
+          <br>
+          <button type="submit">Submit</button>
+
+          <!--<div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button (click)="onAnswerOptionSubmit()" type="submit" class="btn btn-primary" data-dismiss="modal">Save Options</button>
+          </div>-->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

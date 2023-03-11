@@ -4,6 +4,7 @@ import { Question } from './question';
 import { Answer } from '../answer/answer';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environments';
+import {QuestionType} from "./questionType";
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,11 @@ export class QuestionService {
   private apiServerUrl = environment.apiBaseUrl;
 
   constructor(private http: HttpClient) { }
-  
+
   public getQuestion(): Observable<Question[]> {
     return this.http.get<Question[]>(`${this.apiServerUrl}/question/all`);
   }
-  
+
   public findQuestionById(id? : number): Observable<Question> {
     return this.http.get<Question>(`${this.apiServerUrl}/question/find/${id}`);
   }
@@ -28,7 +29,7 @@ export class QuestionService {
 
   public addQuestion(question : Question): Observable<Question> {
     return this.http.post<Question>(`${this.apiServerUrl}/question/add`, question);
-  } 
+  }
 
   public updateQuestion(question : Question): Observable<Question> {
     return this.http.put<Question>(`${this.apiServerUrl}/question/update`, question);
@@ -36,5 +37,9 @@ export class QuestionService {
 
   public deleteQuestion(id? : number): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/question/delete/${id}`);
+  }
+
+  public saveQuestionType(id : number, questionType: QuestionType): Observable<Question> {
+    return this.http.put<Question>(`${this.apiServerUrl}/question/find/${id}/saveQuestionType`, questionType);
   }
 }
