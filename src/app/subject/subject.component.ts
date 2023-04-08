@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Subject } from './subject';
-import { SubjectService } from './subject.service';
+import {Component, OnInit} from '@angular/core';
+import {Subject} from './subject';
+import {SubjectService} from './subject.service';
 import {HttpErrorResponse} from '@angular/common/http';
-import { NgForm } from '@angular/forms';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-subject',

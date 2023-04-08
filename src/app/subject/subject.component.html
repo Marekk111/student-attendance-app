@@ -13,13 +13,13 @@
           <li>
             <table class="table">
               <tr>
-                <td class="text col-sm" routerLink="/subjects/{{subject.id}}" >{{subject.subjectName}}</td>
+                <td class="text col-sm" routerLink="/subjects/{{subject.id}}/lessons" >{{subject.subjectName}}</td>
                 <td>
                   <!--<div class="tools">
                     <i class="fa fa-edit" (click)="('edit', question)" style="padding-right: 0.5rem"></i>
                     <i class="fa fa-trash-o" (click)="('delete', question)"></i>
                   </div><!-->
-                </td>              
+                </td>
               </tr>
             </table>
           </li>
@@ -29,7 +29,7 @@
         <button type="button" class="btn btn-default pull-left" routerLink="/questions"><i class="fa fa-arrow-left"></i> Back</button>
         <button type="button" class="btn btn-default pull-right" (click)="onOpenModal('add', undefined)"><i class="fa fa-plus"></i> Add Subject</button>
       </div>
-    </div>   
+    </div>
 </div>
 </div>
 <router-outlet></router-outlet>

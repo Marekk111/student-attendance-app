@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Question } from './question';
-import { Answer } from '../answer/answer';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environments';
-import {QuestionType} from "./questionType";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Question} from './question';
+import {Answer} from '../answer/answer';
+import {Observable} from 'rxjs';
+import {environment} from 'src/environments/environments';
+import {AnswerOption} from "../answer-option/answer-option";
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +39,7 @@ export class QuestionService {
     return this.http.delete<void>(`${this.apiServerUrl}/question/delete/${id}`);
   }
 
-  public saveQuestionType(id : number, questionType: QuestionType): Observable<Question> {
-    return this.http.put<Question>(`${this.apiServerUrl}/question/find/${id}/saveQuestionType`, questionType);
+  public findAllOptions(id: number): Observable<AnswerOption[]> {
+    return this.http.get<AnswerOption[]>(`${this.apiServerUrl}/question/find/${id}/options`)
   }
 }

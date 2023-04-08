@@ -1,13 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Question} from './question';
 import {QuestionService} from './question.service';
 import {HttpErrorResponse} from '@angular/common/http'
-import {FormControl, FormGroup, NgForm} from '@angular/forms';
+import {NgForm} from '@angular/forms';
 import {QuestionType} from "./questionType";
-import {Observable} from "rxjs";
 import {AnswerOptionService} from "../answer-option/answer-option.service";
 import {AnswerOption} from "../answer-option/answer-option";
-import {NgFor} from "@angular/common";
 
 @Component({
   selector: 'app-question',

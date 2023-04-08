@@ -1,0 +1,16 @@
+.container, .other-div {
+  display: inline-flex; /* or display: inline-flex; */
+  vertical-align: top; /* to align the top of the two divs */
+}
+ul {
+  list-style-type: none;
+}
+.my-button {
+  flex-grow: 1;
+  margin: 10px;
+  width: 100px;
+}
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}

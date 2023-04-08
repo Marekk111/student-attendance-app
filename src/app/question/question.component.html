@@ -7,7 +7,6 @@
         <i class="ion ion-clipboard"></i>
         <h3 class="box-title">Question List</h3>
       </div>
-
       <div *ngFor="let question of questions" class="box-body">
         <ul class="todo-list ui-sortable">
           <li>
@@ -15,11 +14,12 @@
               <tr>
                 <td class="text col-sm-3" routerLink="/questions/{{question.id}}">{{question.name}}</td>
                 <td class="text col-sm-3">{{question.questionBody}}</td>
+                <td class="text col-sm-3">{{question.questionType}}</td>
                 <td>
                   <div class="tools">
                     <i class="fa fa-edit" (click)="onOpenModal('edit', question)" style="padding-right: 0.5rem"></i>
                     <i class="fa fa-trash-o" (click)="onOpenModal('delete', question)"></i>
-                    <i class="fa fa-plus" (click)="onOpenModal('addOption', question)"> Add option </i>
+                    <i *ngIf="question.questionType == 'MULTIPLECHOICE'" class="fa fa-plus" (click)="onOpenModal('addOption', question)" id="addOption"> Add option </i>
                   </div>
                 </td>
               </tr>
@@ -33,7 +33,6 @@
     </div>
 </div>
 </div>
-
 <!--Add Question Modal-->
 <div class="modal fade in" id="addQuestionModal" tabindex="-1" role="dialog" aria-labelledby="addQuestionModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -130,20 +129,20 @@
         </button>
       </div>
       <div class="modal-body">
-        <form #optionForm="ngForm" class="form-group" (ngSubmit)="onAnswerOptionSubmit(optionForm)">
+        <form #optionForm="ngForm" class="form-group" >
           <div *ngFor="let item of items; let i = index;">
-            <input name="optionBody{{i}}" [(ngModel)]="item.optionBody" required>
-            <button type="button" (click)="removeItem(i)">Remove</button>
+            <input name="optionBody{{i}}" [(ngModel)]="item.optionBody" class="form-control" required>
+            <button type="button" (click)="removeItem(i)" class="form-control">Remove</button>
           </div>
-          <button type="button" (click)="addItem(this.questionToAddOptions)">Add</button>
+          <button type="button" (click)="addItem(this.questionToAddOptions)" class="form-control">Add</button>
           <br>
           <br>
-          <button type="submit">Submit</button>
+          <!--<button type="submit" class="form-control">Submit</button>-->
 
-          <!--<div class="modal-footer">
+          <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button (click)="onAnswerOptionSubmit()" type="submit" class="btn btn-primary" data-dismiss="modal">Save Options</button>
-          </div>-->
+            <button (click)="onAnswerOptionSubmit(optionForm)" type="submit" class="btn btn-primary" data-dismiss="modal">Save Options</button>
+          </div>
         </form>
       </div>
     </div>

@@ -1,12 +1,10 @@
-import { Component, OnInit, Output } from '@angular/core';
-import { __importDefault } from 'tslib';
-import { QuestionService } from '../question/question.service';
-import { Question } from '../question/question';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {QuestionService} from '../question/question.service';
+import {Question} from '../question/question';
 import {HttpErrorResponse} from '@angular/common/http';
-import { Subject } from '../subject/subject';
-import { SubjectService } from '../subject/subject.service';
-import { ActivatedRoute } from '@angular/router';
-import { EventEmitter } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {LessonService} from "../lesson/lesson.service";
+import {Lesson} from "../lesson/lesson";
 
 @Component({
   selector: 'app-question-adder',
@@ -14,17 +12,21 @@ import { EventEmitter } from '@angular/core';
   styleUrls: ['./question-adder.component.css']
 })
 export class QuestionAdderComponent implements OnInit{
-  
-  questions: Question[] | undefined;
-  subject: Subject | undefined;
-  id: any = '0';
 
-  constructor(private questionService: QuestionService, private subjectService: SubjectService, private route: ActivatedRoute){
-    this.route.paramMap.subscribe(params => {this.id = params.get('id');})
+  questions: Question[] | undefined;
+  lesson: Lesson | undefined;
+  lessonId: any = '0';
+  subjectId: any = '0';
+
+  constructor(private lessonService: LessonService, private questionService: QuestionService, private route: ActivatedRoute){
+    this.route.paramMap.subscribe(params => {
+      this.subjectId = params.get('subjectId');
+      this.lessonId = params.get('lessonId');
+    })
   }
 
   ngOnInit() {
-    this.getSubject(this.id);
+    this.getLesson(this.lessonId);
     this.getQuestions();
   }
 
@@ -41,10 +43,10 @@ export class QuestionAdderComponent implements OnInit{
     );
   }
 
-  public getSubject(id: number){
-    this.subjectService.findSubjectById(id).subscribe(
-      (response: Subject) => {
-        this.subject = response;
+  public getLesson(id: number){
+    this.lessonService.findLesson(id).subscribe(
+      (response: Lesson) => {
+        this.lesson = response;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -52,12 +54,13 @@ export class QuestionAdderComponent implements OnInit{
     )
   }
 
-  public setQuestionForSubject(question: Question){
-    console.log(this.id);
+  public setQuestionForLesson(question: Question){
+    console.log(this.lessonId);
+    console.log(this.subjectId);
     console.log(question.name);
-    this.subjectService.setSubjectQuestion(this.id, question).subscribe(
-      (response: Subject) => {
-        this.subject = response;
+    this.lessonService.addQuestion(this.lessonId, question).subscribe(
+      (response: Lesson) => {
+        this.lesson = response;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
