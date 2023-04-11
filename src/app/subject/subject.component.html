@@ -26,8 +26,7 @@
         </ul>
       </div>
       <div class="box-footer clearfix no-border">
-        <button type="button" class="btn btn-default pull-left" routerLink="/questions"><i class="fa fa-arrow-left"></i> Back</button>
-        <button type="button" class="btn btn-default pull-right" (click)="onOpenModal('add', undefined)"><i class="fa fa-plus"></i> Add Subject</button>
+        <button *ngIf="loginService.userRole == 'TEACHER'" type="button" class="btn btn-default pull-right" (click)="onOpenModal('add', undefined)"><i class="fa fa-plus"></i> Add Subject</button>
       </div>
     </div>
 </div>

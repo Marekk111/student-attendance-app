@@ -3,6 +3,7 @@ import {Subject} from './subject';
 import {SubjectService} from './subject.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {NgForm} from '@angular/forms';
+import {LoginService} from "../login/login.service";
 
 @Component({
   selector: 'app-subject',
@@ -11,7 +12,7 @@ import {NgForm} from '@angular/forms';
 })
 export class SubjectComponent implements OnInit {
   subjects: Subject[] | undefined;
-  constructor(private subjectService: SubjectService) {}
+  constructor(private subjectService: SubjectService, public loginService: LoginService) {}
 
   ngOnInit() {
     this.getSubjects();
@@ -23,19 +24,21 @@ export class SubjectComponent implements OnInit {
         this.subjects = response;
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        //alert(error.message);
+        console.log(error.message);
       }
     );
   }
 
-  public onUpdateQuestion(subject: Subject): void{
+  public onUpdateSubject(subject: Subject): void{
     this.subjectService.updateSubject(subject).subscribe(
       (response: Subject) => {
         console.log(response);
         this.getSubjects();
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        //alert(error.message);
+        console.log(error.message);
       }
     );
   }
@@ -49,7 +52,8 @@ export class SubjectComponent implements OnInit {
         addForm.reset();
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        //alert(error.message);
+        console.log(error.message);
         addForm.reset();
       }
     );

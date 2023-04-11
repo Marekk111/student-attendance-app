@@ -6,6 +6,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
 import {SubjectService} from "../subject/subject.service";
 import {NgForm} from "@angular/forms";
+import {LoginService} from "../login/login.service";
 
 @Component({
   selector: 'app-lesson',
@@ -20,7 +21,7 @@ export class LessonComponent {
   deleteLesson: Lesson | undefined;
 
   subjectId: any = '0';
-  constructor(private subjectService: SubjectService, private lessonService: LessonService, private route: ActivatedRoute) {
+  constructor(public loginService: LoginService ,private subjectService: SubjectService, private lessonService: LessonService, private route: ActivatedRoute) {
     this.route.paramMap.subscribe(params => {this.subjectId = params.get('subjectId');})
   }
 

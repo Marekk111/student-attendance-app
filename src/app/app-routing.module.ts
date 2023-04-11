@@ -8,16 +8,19 @@ import {QuestionnaireComponent} from './questionnaire/questionnaire.component';
 import {SubjectComponent} from './subject/subject.component';
 import {LoginComponent} from "./login/login.component";
 import {LessonComponent} from "./lesson/lesson.component";
+import {ErrorComponent} from "./error/error.component";
 
 const routes: Routes = [
-  {path: '', component: AppComponent},
+  //{path: '', component: AppComponent},
   {path: 'questions', component: QuestionComponent},
   {path: 'questions/:id', component: AnswerComponent},
   {path: 'subjects', component: SubjectComponent},
   {path: 'subjects/:subjectId/lessons', component: LessonComponent},
   {path: 'subjects/:subjectId/lessons/:lessonId', component: QuestionnaireComponent},
   {path: 'subjects/:subjectId/lessons/:lessonId/setQuestion', component: QuestionAdderComponent},
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'error', component: ErrorComponent},
+  {path: '**', redirectTo: '/login'}
 ];
 
 @NgModule({

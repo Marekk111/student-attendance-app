@@ -11,6 +11,7 @@ import {AnswerOptionService} from "../answer-option/answer-option.service";
 import {LessonService} from "../lesson/lesson.service";
 import {Lesson} from "../lesson/lesson";
 import {QuestionnaireService} from "./questionnaire.service";
+import {LoginService} from "../login/login.service";
 
 @Component({
   selector: 'app-questionnaire',
@@ -29,7 +30,7 @@ export class QuestionnaireComponent implements OnInit{
   dateNow: Date = new Date();
   answerOptions: AnswerOption[] | undefined;
 
-  constructor (private lessonService : LessonService, private questionService: QuestionService, private questionnaireService: QuestionnaireService,private answerService: AnswerService, private answerOptionService: AnswerOptionService, private route: ActivatedRoute) {
+  constructor (public loginService: LoginService, private lessonService : LessonService, private questionService: QuestionService, private questionnaireService: QuestionnaireService,private answerService: AnswerService, private answerOptionService: AnswerOptionService, private route: ActivatedRoute) {
     this.route.paramMap.subscribe(params => {
       this.subjectId = params.get('subjectId');
       this.lessonId = params.get('lessonId');
@@ -91,7 +92,8 @@ export class QuestionnaireComponent implements OnInit{
         this.getQuestion(this.lessonId);
       },
       (error: HttpErrorResponse) => {
-        alert(error.error);
+        console.log(error.message);
+        alert("Question is not answerable!");
       }
     );
   }

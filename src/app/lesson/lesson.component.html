@@ -17,8 +17,8 @@
                 <td class="text col-sm">{{lesson.teacherUsername}}</td>
                 <td>
                   <div class="tools">
-                    <i class="fa fa-edit" style="padding-right: 0.5rem"></i>
-                    <i class="fa fa-trash-o" (click)="onOpenModal('delete', lesson)"></i>
+                    <i *ngIf="loginService.userRole == 'TEACHER'" class="fa fa-edit" style="padding-right: 0.5rem"></i>
+                    <i *ngIf="loginService.userRole == 'TEACHER'" class="fa fa-trash-o" (click)="onOpenModal('delete', lesson)"></i>
                   </div>
                 </td>
               </tr>
@@ -28,7 +28,7 @@
       </div>
       <div class="box-footer clearfix no-border">
         <button type="button" class="btn btn-default pull-left" routerLink="/subjects"><i class="fa fa-arrow-left"></i> Back</button>
-        <button type="button" class="btn btn-default pull-right" (click)="onOpenModal('add', undefined)"><i class="fa fa-plus"></i> Add Lesson</button>
+        <button *ngIf="loginService.userRole == 'TEACHER'" type="button" class="btn btn-default pull-right" (click)="onOpenModal('add', undefined)"><i class="fa fa-plus"></i> Add Lesson</button>
       </div>
     </div>
   </div>

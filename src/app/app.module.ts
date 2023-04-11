@@ -1,4 +1,4 @@
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -15,6 +15,9 @@ import {QuestionAdderComponent} from './question-adder/question-adder.component'
 import {LoginComponent} from './login/login.component';
 import {LessonComponent} from './lesson/lesson.component';
 import {MatButtonModule} from "@angular/material/button";
+import {Interceptor} from "./login/interceptor";
+import {ErrorInterceptor} from "./login/errorInterceptor";
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,8 @@ import {MatButtonModule} from "@angular/material/button";
     QuestionnaireComponent,
     QuestionAdderComponent,
     LoginComponent,
-    LessonComponent
+    LessonComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,8 @@ import {MatButtonModule} from "@angular/material/button";
     BrowserAnimationsModule,
     MatButtonModule,
   ],
-  providers: [QuestionService],
+  providers: [QuestionService, {provide: HTTP_INTERCEPTORS,useClass: Interceptor,multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

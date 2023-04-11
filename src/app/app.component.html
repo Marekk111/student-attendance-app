@@ -1,11 +1,12 @@
 <div class="other-div">
   <div class="col-2 button-container">
     <ul>
-      <li><button class="btn btn-default my-button" routerLink="/subjects">Subjects</button></li>
-      <li><button class="btn btn-default my-button" routerLink="/questions">Questions</button></li>
+      <li *ngIf="loginService.username !== 'anonymousUser'"><button class="btn btn-default my-button" routerLink="/subjects">Subjects</button></li>
+      <li *ngIf="loginService.username !== 'anonymousUser' && loginService.userRole == 'TEACHER'"><button class="btn btn-default my-button" routerLink="/questions">Questions</button></li>
+      <li *ngIf="loginService.username !== 'anonymousUser'"><button class="btn btn-default my-button" (click)="logout()">Log out</button></li>
     </ul>
   </div>
-  <div class="col">
+  <div class="col-2">
     <router-outlet></router-outlet>
   </div>
 </div>

@@ -1,7 +1,19 @@
-<h2>Login form</h2>
+<div class="container" id="main-container">
+  <router-outlet></router-outlet>
+  <div class="row">
+    <div class="box box-aqua">
+      <div class="box-header ui-sortable-handle" style="cursor: move;">
+        <i class="ion ion-clipboard"></i>
+        <h3 class="box-title">Login</h3>
+      </div>
 
-<form (ngSubmit)="onSubmit()">
-  <input type="text" name="username" [(ngModel)]="username">
-  <input type="password" name="password" [(ngModel)]="password">
-  <button type="submit">Login</button>
+    </div>
+  </div>
+</div>
+<form class="form-group" (ngSubmit)="doLogin()">
+  <label for="username" class="text col-sm-3">Username:</label>
+  <input type="text" class="col-sm-3" id="username" class="form-control" name="username" [(ngModel)]="username">
+  <label for="password" class="text col-sm-3">Password:</label>
+  <input type="password" class="col-sm-3" id="password" class="form-control" name="password" [(ngModel)]="password">
+  <button class="btn btn-default" type="submit">Login</button>
 </form>
