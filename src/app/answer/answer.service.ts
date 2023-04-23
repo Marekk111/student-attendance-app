@@ -28,4 +28,8 @@ export class AnswerService {
   public deleteAnswer(id? : number): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/answer/delete/${id}`);
   }
+
+  public getAnswersByQuestionAndLesson(questionId: number, lessonId: number): Observable<Answer[]> {
+    return this.http.get<Answer[]>(`${this.apiServerUrl}/answer/find/${lessonId}/${questionId}`);
+  }
 }

@@ -1,36 +1,36 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container" id="main-container">
-  <router-outlet></router-outlet>
-  <div class="row">
-    <div class="box box-aqua">
-      <div class="box-header ui-sortable-handle" style="cursor: move;">
-        <i class="ion ion-clipboard"></i>
-        <h3 class="box-title">Subjects List</h3>
-      </div>
+  <div class="container" id="main-container">
+    <router-outlet></router-outlet>
+    <div class="row">
+      <div class="box box-aqua">
+        <div class="box-header ui-sortable-handle" style="cursor: move;">
+          <i class="ion ion-clipboard"></i>
+          <h3 class="box-title">Zoznam predmetov</h3>
+        </div>
 
-      <div *ngFor="let subject of subjects" class="box-body">
-        <ul class="todo-list ui-sortable">
-          <li>
-            <table class="table">
-              <tr>
-                <td class="text col-sm" routerLink="/subjects/{{subject.id}}/lessons" >{{subject.subjectName}}</td>
-                <td>
-                  <!--<div class="tools">
-                    <i class="fa fa-edit" (click)="('edit', question)" style="padding-right: 0.5rem"></i>
-                    <i class="fa fa-trash-o" (click)="('delete', question)"></i>
-                  </div><!-->
-                </td>
-              </tr>
-            </table>
-          </li>
-        </ul>
-      </div>
-      <div class="box-footer clearfix no-border">
-        <button *ngIf="loginService.userRole == 'TEACHER'" type="button" class="btn btn-default pull-right" (click)="onOpenModal('add', undefined)"><i class="fa fa-plus"></i> Add Subject</button>
+        <div *ngFor="let subject of subjects" class="box-body">
+          <ul class="todo-list ui-sortable">
+            <li>
+              <table class="table">
+                <tr>
+                  <td class="text col-sm" routerLink="/subjects/{{subject.id}}/lessons" >{{subject.subjectName}}</td>
+                  <td>
+                    <!--<div class="tools">
+                      <i class="fa fa-edit" (click)="('edit', question)" style="padding-right: 0.5rem"></i>
+                      <i class="fa fa-trash-o" (click)="('delete', question)"></i>
+                    </div><!-->
+                  </td>
+                </tr>
+              </table>
+            </li>
+          </ul>
+        </div>
+        <div class="box-footer clearfix no-border">
+          <button *ngIf="loginService.userRole == 'TEACHER'" type="button" class="btn btn-default pull-right" (click)="onOpenModal('add', undefined)"><i class="fa fa-plus"></i> Pridať predmet</button>
+        </div>
       </div>
     </div>
-</div>
-</div>
+  </div>
 <router-outlet></router-outlet>
 
 <!--Add Subject Modal-->
@@ -39,7 +39,7 @@
    <div class="modal-dialog" role="document">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="addSubjectModalLabel">Add Subject</h5>
+            <h5 class="modal-title" id="addSubjectModalLabel">Pridať predmet</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -47,12 +47,12 @@
          <div class="modal-body">
             <form #addForm="ngForm" (ngSubmit)="onAddSubject(addForm)">
             <div class="form-group">
-               <label for="subjectName">Subject name</label>
-               <input type="text" ngModel name="subjectName" class="form-control" id="subjectName" aria-describedby="nameHelp" placeholder="Enter name" required>
+               <label for="subjectName">Názov predmetu</label>
+               <input type="text" ngModel name="subjectName" class="form-control" id="subjectName" aria-describedby="nameHelp" placeholder="Zadať názov" required>
             </div>
             <div class="modal-footer">
-               <button type="button" id="add-subject-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Submit</button>
+               <button type="button" id="add-subject-form" class="btn btn-secondary" data-dismiss="modal">Zavrieť</button>
+               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Potvrdiť</button>
             </div>
             </form>
          </div>

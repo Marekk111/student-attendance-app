@@ -61,6 +61,7 @@ export class QuestionAdderComponent implements OnInit{
     this.lessonService.addQuestion(this.lessonId, question).subscribe(
       (response: Lesson) => {
         this.lesson = response;
+        localStorage.setItem('answerUser', '');
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

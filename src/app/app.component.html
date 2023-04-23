@@ -1,9 +1,9 @@
 <div class="other-div">
   <div class="col-2 button-container">
     <ul>
-      <li *ngIf="loginService.username !== 'anonymousUser'"><button class="btn btn-default my-button" routerLink="/subjects">Subjects</button></li>
-      <li *ngIf="loginService.username !== 'anonymousUser' && loginService.userRole == 'TEACHER'"><button class="btn btn-default my-button" routerLink="/questions">Questions</button></li>
-      <li *ngIf="loginService.username !== 'anonymousUser'"><button class="btn btn-default my-button" (click)="logout()">Log out</button></li>
+      <li *ngIf="loginService.username !== 'anonymousUser'"><button class="btn btn-default my-button" routerLink="/subjects">Predmety</button></li>
+      <li *ngIf="loginService.username !== 'anonymousUser' && loginService.userRole == 'TEACHER'"><button class="btn btn-default my-button" routerLink="/questions">Otázky</button></li>
+      <li *ngIf="loginService.username !== 'anonymousUser'"><button class="btn btn-default my-button" (click)="logout()">Odhlásiť sa</button></li>
     </ul>
   </div>
   <div class="col-2">

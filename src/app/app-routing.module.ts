@@ -9,6 +9,8 @@ import {SubjectComponent} from './subject/subject.component';
 import {LoginComponent} from "./login/login.component";
 import {LessonComponent} from "./lesson/lesson.component";
 import {ErrorComponent} from "./error/error.component";
+import {ChartComponent} from "./chart/chart.component";
+import {AnswerHistoryComponent} from "./answer-history/answer-history.component";
 
 const routes: Routes = [
   //{path: '', component: AppComponent},
@@ -20,7 +22,10 @@ const routes: Routes = [
   {path: 'subjects/:subjectId/lessons/:lessonId/setQuestion', component: QuestionAdderComponent},
   {path: 'login', component: LoginComponent},
   {path: 'error', component: ErrorComponent},
+  {path: 'subjects/:subjectId/lessons/:lessonId/:questionId/chart', component: ChartComponent},
+  {path: 'subjects/:subjectId/lessons/:lessonId/:questionId', component: AnswerHistoryComponent},
   {path: '**', redirectTo: '/login'}
+
 ];
 
 @NgModule({

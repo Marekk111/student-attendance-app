@@ -5,6 +5,7 @@ export interface Lesson {
   id: number;
 
   lessonGroup: string;
+  groupName: string;
   subject: Subject;
   question: Question;
   timeStart: Date;

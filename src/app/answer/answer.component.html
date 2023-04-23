@@ -13,13 +13,14 @@
           <li>
             <table class="table">
               <tr>
-                <td class="text col-sm">{{answer.answerBody}}</td>
+                <td class="text col-sm-2">{{answer.answerBody}}</td>
+                <td class="text col-sm-2">Answered by: {{answer.answeredByUser}}</td>
                 <td>
                   <!--<div class="tools">
                     <i class="fa fa-edit" (click)="('edit', question)" style="padding-right: 0.5rem"></i>
                     <i class="fa fa-trash-o" (click)="('delete', question)"></i>
                   </div><!-->
-                </td>              
+                </td>
               </tr>
             </table>
           </li>
@@ -28,7 +29,7 @@
       <div class="box-footer clearfix no-border">
         <button type="button" class="btn btn-default pull-right" routerLink="/questions"><i class="fa fa-arrow-left"></i> Back</button>
       </div>
-    </div>   
+    </div>
 </div>
 </div>
 <router-outlet></router-outlet>

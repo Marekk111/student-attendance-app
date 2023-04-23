@@ -12,6 +12,7 @@ import {LessonService} from "../lesson/lesson.service";
 import {Lesson} from "../lesson/lesson";
 import {QuestionnaireService} from "./questionnaire.service";
 import {LoginService} from "../login/login.service";
+import {Subject} from "../subject/subject";
 
 @Component({
   selector: 'app-questionnaire',
@@ -20,12 +21,13 @@ import {LoginService} from "../login/login.service";
 })
 export class QuestionnaireComponent implements OnInit{
 
-  lesson: Lesson | undefined;
+  lesson: Lesson = <Lesson>{};
   question: Question | undefined;
 
   subjectId: any = '0';
   lessonId: any = '0';
   answer: Answer | undefined;
+  answerUser: string;
 
   dateNow: Date = new Date();
   answerOptions: AnswerOption[] | undefined;
@@ -36,6 +38,7 @@ export class QuestionnaireComponent implements OnInit{
       this.lessonId = params.get('lessonId');
     });
     this.getLesson(this.lessonId);
+    this.answerUser = localStorage.getItem('answerUser') || "";
   }
 
   ngOnInit(): void {
@@ -88,8 +91,8 @@ export class QuestionnaireComponent implements OnInit{
     this.questionnaireService.answerQuestion(this.lessonId, addForm.value).subscribe(
       (response: Answer) => {
         this.answer = response;
-        console.log(response);
-        this.getQuestion(this.lessonId);
+        localStorage.setItem('answerUser', this.answer.answeredByUser);
+        window.location.reload();
       },
       (error: HttpErrorResponse) => {
         console.log(error.message);

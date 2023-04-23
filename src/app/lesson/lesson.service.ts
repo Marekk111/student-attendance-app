@@ -37,4 +37,8 @@ export class LessonService {
   public getQuestion(id: number) : Observable<Question> {
     return this.http.get<Question>(`${this.apiServerUrl}/lesson/find/${id}/question`);
   }
+
+  public getPreviousQuestions(id: number) : Observable<Question[]> {
+    return this.http.get<Question[]>(`${this.apiServerUrl}/lesson/find/${id}/pastQuestions`);
+  }
 }

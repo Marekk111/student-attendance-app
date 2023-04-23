@@ -4,16 +4,16 @@
     <div class="box box-aqua">
       <div class="box-header ui-sortable-handle" style="cursor: move;">
         <i class="ion ion-clipboard"></i>
-        <h3 class="box-title">Login</h3>
+        <h3 class="box-title">Prihlásenie</h3>
       </div>
 
     </div>
   </div>
 </div>
 <form class="form-group" (ngSubmit)="doLogin()">
-  <label for="username" class="text col-sm-3">Username:</label>
+  <label for="username" class="text col-sm-3">Používateľské meno:</label>
   <input type="text" class="col-sm-3" id="username" class="form-control" name="username" [(ngModel)]="username">
-  <label for="password" class="text col-sm-3">Password:</label>
+  <label for="password" class="text col-sm-3">Heslo:</label>
   <input type="password" class="col-sm-3" id="password" class="form-control" name="password" [(ngModel)]="password">
-  <button class="btn btn-default" type="submit">Login</button>
+  <button class="btn btn-default" type="submit">Prihlásiť sa</button>
 </form>

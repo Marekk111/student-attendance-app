@@ -121,4 +121,8 @@ td {
     flex-direction: column;
     align-items: flex-start;
 }
-
+html, body {
+  background-image: url('src/assets/Untitled_Artwork (1).png');
+  background-size: cover;
+  background-repeat: repeat;
+}

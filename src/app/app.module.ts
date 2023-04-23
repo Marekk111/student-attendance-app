@@ -18,6 +18,9 @@ import {MatButtonModule} from "@angular/material/button";
 import {Interceptor} from "./login/interceptor";
 import {ErrorInterceptor} from "./login/errorInterceptor";
 import { ErrorComponent } from './error/error.component';
+import { ChartComponent } from './chart/chart.component';
+import { NgChartsModule } from 'ng2-charts';
+import { AnswerHistoryComponent } from './answer-history/answer-history.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,9 @@ import { ErrorComponent } from './error/error.component';
     QuestionAdderComponent,
     LoginComponent,
     LessonComponent,
-    ErrorComponent
+    ErrorComponent,
+    ChartComponent,
+    AnswerHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +45,7 @@ import { ErrorComponent } from './error/error.component';
     RouterModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    NgChartsModule
   ],
   providers: [QuestionService, {provide: HTTP_INTERCEPTORS,useClass: Interceptor,multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],

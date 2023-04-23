@@ -5,7 +5,7 @@
     <div class="box box-aqua">
       <div class="box-header ui-sortable-handle" style="cursor: move;">
         <i class="ion ion-clipboard"></i>
-        <h3 class="box-title">Lessons</h3>
+        <h3 class="box-title">Cvičenia predmetu {{this.subject?.subjectName}}</h3>
       </div>
 
       <div *ngFor="let lesson of lessons" class="box-body">
@@ -13,8 +13,8 @@
           <li>
             <table class="table">
               <tr>
-                <td class="text col-sm" routerLink="/subjects/{{this.subjectId}}/lessons/{{lesson.id}}" >{{lesson.lessonGroup}}</td>
-                <td class="text col-sm">{{lesson.teacherUsername}}</td>
+                <td class="text col-sm-2" routerLink="/subjects/{{this.subjectId}}/lessons/{{lesson.id}}" >{{lesson.lessonGroup}}</td>
+                <td class="text col-sm-2">Pridal/a: {{lesson.teacherUsername}}</td>
                 <td>
                   <div class="tools">
                     <i *ngIf="loginService.userRole == 'TEACHER'" class="fa fa-edit" style="padding-right: 0.5rem"></i>
@@ -27,8 +27,8 @@
         </ul>
       </div>
       <div class="box-footer clearfix no-border">
-        <button type="button" class="btn btn-default pull-left" routerLink="/subjects"><i class="fa fa-arrow-left"></i> Back</button>
-        <button *ngIf="loginService.userRole == 'TEACHER'" type="button" class="btn btn-default pull-right" (click)="onOpenModal('add', undefined)"><i class="fa fa-plus"></i> Add Lesson</button>
+        <button type="button" class="btn btn-default pull-left" routerLink="/subjects"><i class="fa fa-arrow-left"></i> Späť</button>
+        <button *ngIf="loginService.userRole == 'TEACHER'" type="button" class="btn btn-default pull-right" (click)="onOpenModal('add', undefined)"><i class="fa fa-plus"></i> Pridať cvičenie</button>
       </div>
     </div>
   </div>
@@ -40,7 +40,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addLessonModalLabel">Add Lesson</h5>
+        <h5 class="modal-title" id="addLessonModalLabel">Pridať cvičenie</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -48,17 +48,18 @@
       <div class="modal-body">
         <form #addForm="ngForm" (ngSubmit)="onAddLesson(addForm)">
           <div class="form-group">
-            <label for="lessonGroup">Lesson Group name</label>
-            <input type="text" ngModel name="lessonGroup" class="form-control" id="lessonGroup" aria-describedby="nameHelp" placeholder="Enter lesson name" required>
+            <label for="lessonGroup">Názov cvičenia</label>
+            <input type="text" ngModel name="lessonGroup" class="form-control" id="lessonGroup" aria-describedby="nameHelp" placeholder="Zadajte názov cvičenia" required>
             <input type="hidden" [(ngModel)]="this.subject" name="subject" class="form-control" id="subject" aria-describedby="nameHelp" required>
-            <label for="timeStart">Beginning of answerability:</label>
+            <label for="timeStart">Začiatok platnosti:</label>
             <input type="datetime-local" id="timeStart" ngModel name="timeStart" class="form-control" required>
-            <label for="timeEnd">End of answerability:</label>
+            <label for="timeEnd">Koniec platnosti:</label>
             <input type="datetime-local" id="timeEnd" ngModel name="timeEnd" class="form-control" required>
+            <input type="hidden" [(ngModel)]="this.loginService.username" name="teacherUsername" require>
           </div>
           <div class="modal-footer">
-            <button type="button" id="add-subject-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" id="add-lesson-form" class="btn btn-secondary" data-dismiss="modal">Zavrieť</button>
+            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Potvrdiť</button>
           </div>
         </form>
       </div>
@@ -71,16 +72,16 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="deleteModelLabel">Delete Question</h5>
+        <h5 class="modal-title" id="deleteModelLabel">Vymazať cvičenie</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to delete question {{deleteLesson?.lessonGroup}}?</p>
+        <p>Naozaj chcete vymazat cvičenie {{deleteLesson?.lessonGroup}}?</p>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-          <button (click)="onDeleteLesson(deleteLesson?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Nie</button>
+          <button (click)="onDeleteLesson(deleteLesson?.id)" class="btn btn-danger" data-dismiss="modal">Áno</button>
         </div>
       </div>
     </div>

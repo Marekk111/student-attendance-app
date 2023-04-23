@@ -14,10 +14,9 @@ import {ActivatedRoute} from '@angular/router'
 
 export class AnswerComponent implements OnInit {
     public question: Question | undefined;
-    public answers: Answer[] | undefined;
+    public answers: Answer[] = [];
     id: any = '0';
     constructor(private answerService: AnswerService, private questionService: QuestionService, private route: ActivatedRoute) {
-        this.route.paramMap.subscribe(params => console.log(params))
         this.route.paramMap.subscribe(params => {this.id = params.get('id');})
     }
 
@@ -25,7 +24,6 @@ export class AnswerComponent implements OnInit {
         this.getQuestion(this.id);
         this.getAnswers(this.id);
     }
-
     public getQuestion(id?: number){
         this.questionService.findQuestionById(id).subscribe(
             (response: Question) => {
@@ -41,6 +39,7 @@ export class AnswerComponent implements OnInit {
         this.questionService.findAllAnswersForQuestion(id).subscribe(
           (response: Answer[]) => {
             this.answers = response;
+            console.log(this.answers);
           },
           (error: HttpErrorResponse) => {
             alert(error.message);

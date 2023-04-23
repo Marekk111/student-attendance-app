@@ -5,7 +5,7 @@
     <div class="box box-aqua">
       <div class="box-header ui-sortable-handle" style="cursor: move;">
         <i class="ion ion-clipboard"></i>
-        <h3 class="box-title">Question List</h3>
+        <h3 class="box-title">Zoznam otázok</h3>
       </div>
       <div *ngFor="let question of questions" class="box-body">
         <ul class="todo-list ui-sortable">
@@ -19,7 +19,7 @@
                   <div class="tools">
                     <i class="fa fa-edit" (click)="onOpenModal('edit', question)" style="padding-right: 0.5rem"></i>
                     <i class="fa fa-trash-o" (click)="onOpenModal('delete', question)"></i>
-                    <i *ngIf="question.questionType == 'MULTIPLECHOICE'" class="fa fa-plus" (click)="onOpenModal('addOption', question)" id="addOption"> Add option </i>
+                    <i *ngIf="question.questionType == 'MULTIPLECHOICE'" class="fa fa-plus" (click)="onOpenModal('addOption', question)" id="addOption"> Pridať možnosti </i>
                   </div>
                 </td>
               </tr>
@@ -28,7 +28,7 @@
         </ul>
       </div>
       <div class="box-footer clearfix no-border">
-        <button type="button" class="btn btn-default pull-right" (click)="onOpenModal('add', undefined)"><i class="fa fa-plus"></i> Add Question</button>
+        <button type="button" class="btn btn-default pull-right" (click)="onOpenModal('add', undefined)"><i class="fa fa-plus"></i> Pridať otázku</button>
       </div>
     </div>
 </div>
@@ -38,7 +38,7 @@
   <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="addQuestionModalLabel">Add Question</h5>
+          <h5 class="modal-title" id="addQuestionModalLabel">Pridať otázku</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -46,12 +46,12 @@
         <div class="modal-body">
           <form #addForm="ngForm" (ngSubmit)="onAddQuestion(addForm)">
               <div class="form-group">
-                <label for="questionName">Question name</label>
-                <input type="text" ngModel name="name" class="form-control" id="questionName" aria-describedby="nameHelp" placeholder="Enter name" required>
-                <label for="questionBody">Question body</label>
-                <input type="text" ngModel name="questionBody" class="form-control" id="questionBody" aria-describedby="nameHelp" placeholder="Enter question body" required>
+                <label for="questionName">Názov otázky</label>
+                <input type="text" ngModel name="name" class="form-control" id="questionName" aria-describedby="nameHelp" placeholder="Zadať názov" required>
+                <label for="questionBody">Telo otázky</label>
+                <input type="text" ngModel name="questionBody" class="form-control" id="questionBody" aria-describedby="nameHelp" placeholder="Zadať telo otázky" required>
                 <div class="form-group">
-                  <label for="questionTypeDropdown">Select question type:</label>
+                  <label for="questionTypeDropdown">Vybrať typ otázky:</label>
                   <select ngModel name="questionType" id="questionTypeDropdown" class="form-control">
                     <option *ngFor="let option of questionTypes" [value]="option">{{ option }}</option>
                   </select>
@@ -59,8 +59,8 @@
                 <!--<input type="hidden" [(ngModel)]="selectedOption" name="questionType" class="form-control" id="questionType">-->
               </div>
               <div class="modal-footer">
-                  <button type="button" id="add-question-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Submit</button>
+                  <button type="button" id="add-question-form" class="btn btn-secondary" data-dismiss="modal">Zavrieť</button>
+                  <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Potvrdiť</button>
               </div>
           </form>
         </div>
@@ -73,16 +73,16 @@
   <div class="modal-dialog" role="document">
      <div class="modal-content">
         <div class="modal-header">
-           <h5 class="modal-title" id="deleteModelLabel">Delete Question</h5>
+           <h5 class="modal-title" id="deleteModelLabel">Vymazať otázku</h5>
            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
            </button>
         </div>
         <div class="modal-body">
-           <p>Are you sure you want to delete question {{deleteQuestion?.name}}?</p>
+           <p>Určite chcete vymazať otázku {{deleteQuestion?.name}}?</p>
            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-              <button (click)="onDeleteQuestion(deleteQuestion?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Nie</button>
+              <button (click)="onDeleteQuestion(deleteQuestion?.id)" class="btn btn-danger" data-dismiss="modal">Áno</button>
            </div>
         </div>
      </div>
@@ -94,7 +94,7 @@
   <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editQuestionModalLabel">Edit Question</h5>
+          <h5 class="modal-title" id="editQuestionModalLabel">Upraviť otázku</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -102,16 +102,21 @@
         <div class="modal-body">
           <form #editForm="ngForm">
               <div class="form-group">
-                <label for="InputQuestionName">Question name</label>
+                <label for="InputQuestionName">Názov otázky</label>
                 <input type="text" ngModel="{{editQuestion?.name}}" name="name" class="form-control" id="InputQuestionName" aria-describedby="nameHelp" placeholder="Enter question name">
-                <label for="InputQuestionBody">Question Body</label>
+                <label for="InputQuestionBody">Telo otázky</label>
                 <input type="text" ngModel="{{editQuestion?.questionBody}}" name="questionBody" class="form-control" id="InputQuestionBody">
               </div>
               <input type="hidden" ngModel="{{editQuestion?.id}}" name="id" class="form-control" id="InputQuestionId">
-
+            <div class="form-group">
+              <label for="editQuestionTypeDropdown">Vybrať typ otázky:</label>
+              <select ngModel="{{editQuestion?.questionType}}" name="questionType" id="editQuestionTypeDropdown" class="form-control">
+                <option *ngFor="let option of questionTypes" [value]="option">{{ option }}</option>
+              </select>
+            </div>
               <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button (click)="onUpdateQuestion(editForm.value)" type="submit" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavrieť</button>
+                  <button (click)="onUpdateQuestion(editForm.value)" type="submit" class="btn btn-primary" data-dismiss="modal">Uložiť zmeny</button>
               </div>
           </form>
         </div>
@@ -123,7 +128,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="OptionModalLabel">Add Option</h5>
+        <h5 class="modal-title" id="OptionModalLabel">Pridať možnosti</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -132,16 +137,16 @@
         <form #optionForm="ngForm" class="form-group" >
           <div *ngFor="let item of items; let i = index;">
             <input name="optionBody{{i}}" [(ngModel)]="item.optionBody" class="form-control" required>
-            <button type="button" (click)="removeItem(i)" class="form-control">Remove</button>
+            <button type="button" (click)="removeItem(i)" class="form-control">Odstrániť</button>
           </div>
-          <button type="button" (click)="addItem(this.questionToAddOptions)" class="form-control">Add</button>
+          <button type="button" (click)="addItem(this.questionToAddOptions)" class="form-control">Pridať</button>
           <br>
           <br>
           <!--<button type="submit" class="form-control">Submit</button>-->
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button (click)="onAnswerOptionSubmit(optionForm)" type="submit" class="btn btn-primary" data-dismiss="modal">Save Options</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavrieť</button>
+            <button (click)="onAnswerOptionSubmit(optionForm)" type="submit" class="btn btn-primary" data-dismiss="modal">Uložiť možnosti</button>
           </div>
         </form>
       </div>

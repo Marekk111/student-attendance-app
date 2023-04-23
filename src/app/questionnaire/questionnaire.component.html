@@ -4,14 +4,14 @@
       <div class="box box-aqua">
         <div class="box-header ui-sortable-handle" style="cursor: move;">
           <i class="ion ion-clipboard"></i>
-          <h3 class="box-title">{{this.lesson?.lessonGroup}}</h3>
+          <h3 class="box-title">{{this.lesson.lessonGroup}}</h3>
         </div>
         <div class="box-body">
           <ul class="todo-list ui-sortable">
             <li>
               <table class="table">
                 <tr>
-                  <td class="text col-sm">Question: {{this.question?.questionBody}}</td>
+                  <td class="text col-sm">Otázka: {{this.question?.questionBody}}</td>
                   <td>
                     <div class="tools">
                       <i *ngIf="loginService.userRole == 'TEACHER'" class="fa fa-edit" routerLink="/subjects/{{this.subjectId}}/lessons/{{this.lessonId}}/setQuestion" style="padding-right: 0.5rem"></i>
@@ -23,8 +23,9 @@
           </ul>
         </div>
         <div class="box-footer clearfix no-border">
-          <button *ngIf="loginService.userRole == 'STUDENT'" type="button" class="btn btn-default pull-right" (click)="onOpenModal('add', undefined)"><i class="fa fa-plus"></i> Submit answer</button>
-          <button type="button" class="btn btn-default pull-left" routerLink="/subjects/{{this.subjectId}}/lessons"><i class="fa fa-arrow-left"></i> Back</button>
+          <button *ngIf="loginService.userRole == 'STUDENT' && this.answerUser != this.loginService.username" type="button" class="btn btn-default pull-right" (click)="onOpenModal('add', undefined)"><i class="fa fa-plus"></i> Odpovedať</button>
+          <button type="button" class="btn btn-default pull-left" routerLink="/subjects/{{this.subjectId}}/lessons"><i class="fa fa-arrow-left"></i> Späť</button>
+          <button *ngIf="loginService.userRole == 'TEACHER'" type="button" class="btn btn-default pull-right" routerLink="/subjects/{{this.subjectId}}/lessons/{{this.lesson.id}}/{{this.question?.id}}/chart"><i></i>Zobraziť odpovede</button>
         </div>
       </div>
     </div>
@@ -35,7 +36,7 @@
   <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="addAnswerModalLabel">Answer question</h5>
+          <h5 class="modal-title" id="addAnswerModalLabel">Odpovedať na otázku</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -45,16 +46,20 @@
             <div *ngIf="this.question?.questionType === 'MULTIPLECHOICE'">
               <div *ngFor="let option of answerOptions" class="form-group">
                 <label>
-                  <input type="hidden" [(ngModel)]="this.question" name="question" class="form-control" id="question">
+                  <input type="hidden" [(ngModel)]="this.question" name="question" class="form-control">
                   <input type="radio" ngModel name="answerBody" [value]="option.optionBody">
                   {{ option.optionBody }}
                 </label>
+                <input type="hidden" [(ngModel)]="this.lessonId" name="lessonId">
+                <input type="hidden" [(ngModel)]="this.loginService.username" name="answeredByUser">
               </div>
             </div>
             <div class="form-group" *ngIf="this.question?.questionType === 'OPEN'">
-              <input type="hidden" [(ngModel)]="this.question" name="question" class="form-control" id="question">
+              <input type="hidden" [(ngModel)]="this.question" name="question" class="form-control">
               <label for="answerBody">Answer</label>
               <input type="text" ngModel name="answerBody" class="form-control" id="answerBody" aria-describedby="nameHelp" placeholder="Enter answer" required>
+              <input type="hidden" [(ngModel)]="this.lessonId" name="lessonId">
+              <input type="hidden" [(ngModel)]="this.loginService.username" name="answeredByUser">
             </div>
             <div class="modal-footer">
                 <button type="button" id="add-answer-form" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -1,4 +1,3 @@
-
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container" id="main-container">
   <router-outlet></router-outlet>
@@ -6,19 +5,20 @@
     <div class="box box-aqua">
       <div class="box-header ui-sortable-handle" style="cursor: move;">
         <i class="ion ion-clipboard"></i>
-        <h3 class="box-title">Zoznam otázok</h3>
+        <h3 class="box-title">{{question?.questionBody}}</h3>
       </div>
-      <div *ngFor="let question of questions" class="box-body">
+
+      <div *ngFor="let question of previousQuestions" class="box-body">
         <ul class="todo-list ui-sortable">
           <li>
             <table class="table">
               <tr>
-                <li><td class="text col-sm-3">{{question.name}}</td></li>
-                <td class="text col-sm">{{question.questionBody}}</td>
+                <td class="text col-sm" routerLink="chart">{{question.name}}</td>
                 <td>
-                    <div class="tools">
-                        <i class="fa fa-plus" (click)="setQuestionForLesson(question)" routerLink="/subjects/{{this.subjectId}}/lessons/{{this.lesson?.id}}" style="padding-right: 0.5rem"></i>
-                    </div>
+                  <!--<div class="tools">
+                    <i class="fa fa-edit" (click)="('edit', question)" style="padding-right: 0.5rem"></i>
+                    <i class="fa fa-trash-o" (click)="('delete', question)"></i>
+                  </div><!-->
                 </td>
               </tr>
             </table>
@@ -26,9 +26,9 @@
         </ul>
       </div>
       <div class="box-footer clearfix no-border">
-        <button type="button" class="btn btn-default pull-right" routerLink="/subjects/{{this.subjectId}}/lessons/{{this.lesson?.id}}"><i class="fa fa-arrow-left"></i> Späť</button>
+        <button type="button" class="btn btn-default pull-right" routerLink="../"><i class="fa fa-arrow-left"></i> Späť</button>
       </div>
     </div>
-</div>
+  </div>
 </div>
 <router-outlet></router-outlet>

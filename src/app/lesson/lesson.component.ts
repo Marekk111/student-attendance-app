@@ -30,6 +30,7 @@ export class LessonComponent {
     this.getLessons(this.subjectId);
     this.getSubject(this.subjectId);
     console.log(this.subject);
+    console.log(this.loginService.username);
   }
 
   public getSubject(id: number) {
