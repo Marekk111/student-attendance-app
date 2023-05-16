@@ -48,7 +48,8 @@
             <form #addForm="ngForm" (ngSubmit)="onAddSubject(addForm)">
             <div class="form-group">
                <label for="subjectName">Názov predmetu</label>
-               <input type="text" ngModel name="subjectName" class="form-control" id="subjectName" aria-describedby="nameHelp" placeholder="Zadať názov" required>
+               <input type="text" ngModel name="subjectName" class="form-control" id="subjectName"
+                      aria-describedby="nameHelp" placeholder="Zadať názov" required>
             </div>
             <div class="modal-footer">
                <button type="button" id="add-subject-form" class="btn btn-secondary" data-dismiss="modal">Zavrieť</button>
